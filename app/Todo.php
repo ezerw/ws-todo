@@ -10,7 +10,7 @@ class Todo extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = [
-        'name', 'status'
+        'name'
     ];
 
     /**
