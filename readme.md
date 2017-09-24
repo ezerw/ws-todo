@@ -52,8 +52,14 @@ and add the line
 vagrant up
 ```
 
-### 8. Visit http://homestead.app
+### 8. SSH in the VM and run migrations
+```bash
+php artisan migrate
+```
 
+### 9. Visit http://homestead.app
 
-## Test
+<hr>
+
+## Tests
 Run `phpunit` from the project root inside the vm
