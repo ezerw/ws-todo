@@ -53,3 +53,7 @@ vagrant up
 ```
 
 ### 8. Visit http://homestead.app
+
+
+## Test
+Run `phpunit` from the project root inside the vm
