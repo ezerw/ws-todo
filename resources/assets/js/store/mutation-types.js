@@ -1,0 +1,6 @@
+export const FETCH_TODOS        = 'FETCH_TODOS'
+export const ADD_TODO           = 'ADD_TODO'
+export const DELETE_TODO        = 'DELETE_TODO'
+export const HANDLE_ERROR       = 'HANDLE_ERROR'
+export const CLEAN_ERRORS       = 'CLEAN_ERRORS'
+export const TOGGLE_TODO_STATUS = 'TOGGLE_TODO_STATUS'
