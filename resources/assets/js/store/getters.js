@@ -18,27 +18,31 @@ export const getNameErrors = state => {
 export const getTodos = state => state.todos
 
 /**
- * Get non completed todos
+ * Get todos by status
  *
  * @param state
- * @returns {Object}
+ * @returns {(p1:*)=>Array.<*>}
  */
-export const getNonCompletedTodos = state => {
-    return state.todos.filter(todo => {
-        return todo.completed === false;
+export const getTodosWithCompletedAs = state => {
+    return status => state.todos.filter(todo => {
+        return todo.completed === status;
     })
 }
 
-export const getSeries = (state, getters) => {
-    return hourMinutes => hourMinutes.map(hourMinute => {
-        return getters.getNonCompletedTodos.reduce( (sum, todo) => {
-            let hour = parseInt(hourMinute.split(':')[0]);
-            let minute = parseInt(hourMinute.split(':')[1]);
+/**
+ * Returns the ChartData
+ *
+ * @param state
+ */
+export const getChartData = (state) => {
 
-            let todoHour = parseInt(moment(todo.update).format('HH'));
-            let todoMinute = parseInt(moment(todo.update).format('mm'));
+    let labels = Object.keys(state.chartData);
+    let totals = labels.map(function (k) {
+        return state.chartData[k];
+    });
 
-            return (hour == todoHour && minute == todoMinute) ? sum += 1 : sum;
-        }, 0)
-    })
+    return {
+        labels: labels,
+        totals: totals
+    }
 }

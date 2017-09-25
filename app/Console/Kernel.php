@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Jobs\CalculateUncompletedTotal;
+use App\Jobs\RemoveOldTotals;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -24,8 +26,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        // Update or Insert new uncompleted totals per minute
+        $schedule->job(new CalculateUncompletedTotal)->everyMinute();
+
+        // Delete transactions older than an hour ago
+        $schedule->job(new RemoveOldTotals)->everyMinute();
     }
 
     /**

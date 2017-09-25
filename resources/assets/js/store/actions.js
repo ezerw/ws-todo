@@ -15,6 +15,20 @@ export const fetchTodos = ({ commit }) => {
 };
 
 /**
+ * Fetch Chart Data
+ *
+ * @param commit
+ */
+export const fetchChartData = ({ commit }) => {
+    axios
+        .get('api/chart-data')
+        .then(response => {
+            commit(types.CHART_DATA, response.data.data);
+        })
+        .catch(errors => {})
+};
+
+/**
  * Store new Todo
  *
  * @param commit

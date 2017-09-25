@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateTodoRequest;
 use App\Todo;
 use Illuminate\Http\Request;
+use App\Jobs\RemoveOldTotals;
 use Illuminate\Support\Facades\Auth;
 use App\Transformers\TodoTransformer;
+use App\Jobs\CalculateUncompletedTotal;
+use App\Http\Requests\CreateTodoRequest;
 
+/**
+ * Class TodosController
+ *
+ * @package App\Http\Controllers
+ */
 class TodosController extends ApiController
 {
 
@@ -37,9 +44,15 @@ class TodosController extends ApiController
         $todo->user_id = Auth::user()->id;
 
         try{
+
             $todo->save();
+
+            CalculateUncompletedTotal::dispatch();
+
         } catch (Exception $e){
+
             return $this->errorInternalError();
+
         }
 
         return $this->respondWithItem($todo, new TodoTransformer);
@@ -55,7 +68,10 @@ class TodosController extends ApiController
     public function update(Request $request, Todo $todo)
     {
         $todo->completed = !$request->get('completed');
+
         $todo->save();
+
+        CalculateUncompletedTotal::dispatch();
 
         return $this->respondWithItem($todo, new TodoTransformer);
     }
@@ -69,6 +85,9 @@ class TodosController extends ApiController
     public function destroy(Todo $todo)
     {
         $todo->delete();
+
+        //CalculateUncompletedTotal::dispatch();
+        RemoveOldTotals::dispatch();
 
         $todos = Auth::user()->todos;
         return $this->respondWithCollection($todos, new TodoTransformer);

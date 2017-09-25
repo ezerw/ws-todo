@@ -31,6 +31,9 @@ Route::middleware('auth')->group( function () {
     });
 
     Route::prefix('api')->group(function () {
+
+        Route::get('chart-data', 'ChartController@index');
+
         Route::resource('todos', 'TodosController', ['except' => [
             'create', 'show', 'edit'
         ]]);

@@ -12,6 +12,7 @@ export default new Vuex.Store({
     strict: true,
     state: {
         todos: [],
+        chartData: [],
         errors: []
     },
     getters,
@@ -19,6 +20,9 @@ export default new Vuex.Store({
     mutations: {
         [types.FETCH_TODOS](state, todos) {
             state.todos = todos;
+        },
+        [types.CHART_DATA](state, chartData) {
+            state.chartData = chartData;
         },
         [types.ADD_TODO](state, todo) {
             state.todos.push(todo);

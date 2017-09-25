@@ -15871,13 +15871,15 @@ module.exports = Vue$3;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return FETCH_TODOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return FETCH_TODOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CHART_DATA; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ADD_TODO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return DELETE_TODO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return HANDLE_ERROR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CLEAN_ERRORS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return TOGGLE_TODO_STATUS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return DELETE_TODO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return HANDLE_ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CLEAN_ERRORS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return TOGGLE_TODO_STATUS; });
 var FETCH_TODOS = 'FETCH_TODOS';
+var CHART_DATA = 'CHART_DATA';
 var ADD_TODO = 'ADD_TODO';
 var DELETE_TODO = 'DELETE_TODO';
 var HANDLE_ERROR = 'HANDLE_ERROR';
@@ -57884,24 +57886,27 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
     strict: true,
     state: {
         todos: [],
+        chartData: [],
         errors: []
     },
     getters: __WEBPACK_IMPORTED_MODULE_4__getters__,
     actions: __WEBPACK_IMPORTED_MODULE_3__actions__,
-    mutations: (_mutations = {}, _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_2__mutation_types__["d" /* FETCH_TODOS */], function (state, todos) {
+    mutations: (_mutations = {}, _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_2__mutation_types__["e" /* FETCH_TODOS */], function (state, todos) {
         state.todos = todos;
+    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_2__mutation_types__["b" /* CHART_DATA */], function (state, chartData) {
+        state.chartData = chartData;
     }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_2__mutation_types__["a" /* ADD_TODO */], function (state, todo) {
         state.todos.push(todo);
-    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_2__mutation_types__["f" /* TOGGLE_TODO_STATUS */], function (state, todoId) {
+    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_2__mutation_types__["g" /* TOGGLE_TODO_STATUS */], function (state, todoId) {
         var todo = state.todos.find(function (todo) {
             return todo.id == todoId;
         });
         todo.completed = !todo.completed;
-    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_2__mutation_types__["c" /* DELETE_TODO */], function (state, todos) {
+    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_2__mutation_types__["d" /* DELETE_TODO */], function (state, todos) {
         state.todos = todos;
-    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_2__mutation_types__["e" /* HANDLE_ERROR */], function (state, errors) {
+    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_2__mutation_types__["f" /* HANDLE_ERROR */], function (state, errors) {
         state.errors.push(errors);
-    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_2__mutation_types__["b" /* CLEAN_ERRORS */], function (state) {
+    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_2__mutation_types__["c" /* CLEAN_ERRORS */], function (state) {
         state.errors = [];
     }), _mutations)
 
@@ -58808,6 +58813,7 @@ var index_esm = {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchTodos", function() { return fetchTodos; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchChartData", function() { return fetchChartData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addTodo", function() { return addTodo; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toggleTodoStatus", function() { return toggleTodoStatus; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteTodo", function() { return deleteTodo; });
@@ -58824,7 +58830,20 @@ var fetchTodos = function fetchTodos(_ref) {
     var commit = _ref.commit;
 
     axios.get('api/todos').then(function (response) {
-        commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["d" /* FETCH_TODOS */], response.data.data);
+        commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["e" /* FETCH_TODOS */], response.data.data);
+    }).catch(function (errors) {});
+};
+
+/**
+ * Fetch Chart Data
+ *
+ * @param commit
+ */
+var fetchChartData = function fetchChartData(_ref2) {
+    var commit = _ref2.commit;
+
+    axios.get('api/chart-data').then(function (response) {
+        commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["b" /* CHART_DATA */], response.data.data);
     }).catch(function (errors) {});
 };
 
@@ -58834,13 +58853,13 @@ var fetchTodos = function fetchTodos(_ref) {
  * @param commit
  * @param todo
  */
-var addTodo = function addTodo(_ref2, todo) {
-    var commit = _ref2.commit;
+var addTodo = function addTodo(_ref3, todo) {
+    var commit = _ref3.commit;
 
     axios.post('api/todos', todo).then(function (response) {
         commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["a" /* ADD_TODO */], response.data.data);
     }).catch(function (errors) {
-        commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["e" /* HANDLE_ERROR */], errors.response.data.errors);
+        commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["f" /* HANDLE_ERROR */], errors.response.data.errors);
     });
 };
 
@@ -58850,12 +58869,12 @@ var addTodo = function addTodo(_ref2, todo) {
  * @param commit
  * @param todo
  */
-var toggleTodoStatus = function toggleTodoStatus(_ref3, todo) {
-    var commit = _ref3.commit;
+var toggleTodoStatus = function toggleTodoStatus(_ref4, todo) {
+    var commit = _ref4.commit;
 
 
     axios.patch('api/todos/' + todo.id, todo).then(function (response) {
-        commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["f" /* TOGGLE_TODO_STATUS */], todo.id);
+        commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["g" /* TOGGLE_TODO_STATUS */], todo.id);
     }).catch(function (errors) {});
 };
 
@@ -58865,12 +58884,12 @@ var toggleTodoStatus = function toggleTodoStatus(_ref3, todo) {
  * @param commit
  * @param todo
  */
-var deleteTodo = function deleteTodo(_ref4, todo) {
-    var commit = _ref4.commit;
+var deleteTodo = function deleteTodo(_ref5, todo) {
+    var commit = _ref5.commit;
 
 
     axios.delete('api/todos/' + todo.id).then(function (response) {
-        commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["c" /* DELETE_TODO */], response.data.data);
+        commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["d" /* DELETE_TODO */], response.data.data);
     }).catch(function (errors) {});
 };
 
@@ -58879,10 +58898,10 @@ var deleteTodo = function deleteTodo(_ref4, todo) {
  *
  * @param commit
  */
-var cleanErrors = function cleanErrors(_ref5) {
-    var commit = _ref5.commit;
+var cleanErrors = function cleanErrors(_ref6) {
+    var commit = _ref6.commit;
 
-    commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["b" /* CLEAN_ERRORS */]);
+    commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["c" /* CLEAN_ERRORS */]);
 };
 
 /***/ }),
@@ -58893,8 +58912,8 @@ var cleanErrors = function cleanErrors(_ref5) {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getNameErrors", function() { return getNameErrors; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTodos", function() { return getTodos; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getNonCompletedTodos", function() { return getNonCompletedTodos; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSeries", function() { return getSeries; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTodosWithCompletedAs", function() { return getTodosWithCompletedAs; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getChartData", function() { return getChartData; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
 
@@ -58919,30 +58938,34 @@ var getTodos = function getTodos(state) {
 };
 
 /**
- * Get non completed todos
+ * Get todos by status
  *
  * @param state
- * @returns {Object}
+ * @returns {(p1:*)=>Array.<*>}
  */
-var getNonCompletedTodos = function getNonCompletedTodos(state) {
-    return state.todos.filter(function (todo) {
-        return todo.completed === false;
-    });
+var getTodosWithCompletedAs = function getTodosWithCompletedAs(state) {
+    return function (status) {
+        return state.todos.filter(function (todo) {
+            return todo.completed === status;
+        });
+    };
 };
 
-var getSeries = function getSeries(state, getters) {
-    return function (hourMinutes) {
-        return hourMinutes.map(function (hourMinute) {
-            return getters.getNonCompletedTodos.reduce(function (sum, todo) {
-                var hour = parseInt(hourMinute.split(':')[0]);
-                var minute = parseInt(hourMinute.split(':')[1]);
+/**
+ * Returns the ChartData
+ *
+ * @param state
+ */
+var getChartData = function getChartData(state) {
 
-                var todoHour = parseInt(__WEBPACK_IMPORTED_MODULE_0_moment___default()(todo.update).format('HH'));
-                var todoMinute = parseInt(__WEBPACK_IMPORTED_MODULE_0_moment___default()(todo.update).format('mm'));
+    var labels = Object.keys(state.chartData);
+    var totals = labels.map(function (k) {
+        return state.chartData[k];
+    });
 
-                return hour == todoHour && minute == todoMinute ? sum += 1 : sum;
-            }, 0);
-        });
+    return {
+        labels: labels,
+        totals: totals
     };
 };
 
@@ -59939,10 +59962,8 @@ exports.push([module.i, "\n.chart[data-v-731dc7a0]{\n    width: 100%;\n    heigh
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_highcharts__ = __webpack_require__(181);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_highcharts___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_highcharts__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_highcharts__ = __webpack_require__(181);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_highcharts___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_highcharts__);
 //
 //
 //
@@ -59950,7 +59971,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 
 
 
@@ -59958,40 +59978,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            chart: {},
-            chartStart: __WEBPACK_IMPORTED_MODULE_0_moment___default()().subtract(1, 'h'), //An Hour ago
-            chartEnd: __WEBPACK_IMPORTED_MODULE_0_moment___default()(),
-            labels: [],
-            series: [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+            chart: {}
         };
     },
 
-    watch: {
-        'labels': 'createChart'
-    },
     computed: {
-
-        /*series(){
-            return this.$store.getters.getSeries(this.labels)
-        }*/
+        chartData: function chartData() {
+            return this.$store.getters.getChartData;
+        }
+    },
+    watch: {
+        chartData: function chartData() {
+            this.renderChart();
+        }
     },
     methods: {
-        buildLabels: function buildLabels() {
-            while (this.chartStart.isBefore(this.chartEnd, 'm')) {
-                this.labels.push(this.chartStart.format('HH:mm'));
-                this.chartStart.add(1, "m");
-            }
-        },
-        createChart: function createChart() {
-            this.chart = __WEBPACK_IMPORTED_MODULE_1_highcharts___default.a.chart(this.$refs.chart, {
-                chart: {
-                    type: 'line'
-                },
+        renderChart: function renderChart() {
+            this.chart = __WEBPACK_IMPORTED_MODULE_0_highcharts___default.a.chart(this.$refs.chart, {
+                chart: { type: 'line' },
                 title: {
                     text: 'Non completed at each minute in the last hour'
                 },
                 xAxis: {
-                    categories: this.labels //Every minute from one hour ago
+                    categories: this.chartData.labels
                 },
                 yAxis: {
                     title: {
@@ -60000,13 +60009,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 },
                 series: [{
                     name: 'Non Completed',
-                    data: this.series //Todo Totals
+                    data: this.chartData.totals
                 }]
             });
         }
     },
     mounted: function mounted() {
-        this.buildLabels();
+        var _this = this;
+
+        this.$store.dispatch("fetchChartData");
+
+        setInterval(function () {
+            _this.$store.dispatch("fetchChartData");
+            console.info('Fresh data loaded');
+        }, 60 * 1000);
     }
 });
 
@@ -60428,7 +60444,18 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "panel panel-default" }, [
     _c("div", { staticClass: "panel-body" }, [
-      _c("div", { ref: "chart", staticClass: "chart" })
+      _c("div", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.chartData,
+            expression: "chartData"
+          }
+        ],
+        ref: "chart",
+        staticClass: "chart"
+      })
     ])
   ])
 }

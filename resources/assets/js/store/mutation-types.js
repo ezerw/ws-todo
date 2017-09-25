@@ -1,4 +1,5 @@
 export const FETCH_TODOS        = 'FETCH_TODOS'
+export const CHART_DATA         = 'CHART_DATA'
 export const ADD_TODO           = 'ADD_TODO'
 export const DELETE_TODO        = 'DELETE_TODO'
 export const HANDLE_ERROR       = 'HANDLE_ERROR'
